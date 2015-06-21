@@ -1,0 +1,128 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<title>Document</title>
+</head>
+<body>
+	<div data-role="page" id="l_pageone" class="font_family" >
+			<div class="l_logo">
+				<img src="img/logo.png" alt="">
+			</div>
+			<div id="l_fontone">
+				<img src="img/font1.png" alt="">
+			</div>
+			<div id="l_fonttwo">
+				<img src="img/font2.png" alt="">
+			</div>	
+			<div id="l_fontthree">
+				<img src="img/font3.png" alt="">
+			</div>
+			<!-- 游戏规则简介 -->
+			<div id="mask">
+				<img src="img/font1.png" alt=""><img src="img/cancle.png" alt="">
+				<div id="l_rulation">
+					<h2>活动规则</h2>
+					<ul>
+						<li><span></span>玩赛车游戏，只要好友导师寄予晋级，则关注海泉湾微信服务号即可参与转盘抽奖</li>
+						<li><span></span>活动期间，奖品数送完即止</li>
+						<li><span></span>每次玩完后若分享，则必须等待好友做出评价后方可再玩</li>
+						<li><span></span>4港中旅珠海海泉湾度假区有权在法律范围内对本次活动做出调整</li>
+					</ul>
+				</div>		
+			</div>
+			<!-- 我要挑战 -->
+			<p id="l_tz">
+				<a  href="index2.html" id="l_start"  rel="external">
+					<img src="img/tz.png"></img>
+					<img src="img/play.png" alt="">
+				</a>
+			</p>
+			<!-- 游戏规则 -->
+			<p id="l_rule">
+				<span >游戏规则</span>
+			</p>
+
+	</div>
+</body>
+
+			<script type="text/javascript">
+
+	// 加载图片
+	var arr=["img/bg1.jpg","img/logo.png","img/font1.png","img/font2.png","img/font3.png","img/tz.png","img/play.png","img/play.png"];
+	function allCallback(){
+		$("#l_fontone").css({
+			animation:"0.1s tranlate1 0.5s forwards linear",
+		})
+		$("#l_fonttwo").css({
+			animation:"tranlate2 0.5s forwards linear",
+		})
+		$("#l_fonttwo>img").css({
+			animation:"root 0.5s forwards linear",
+		})
+		$("#l_fontthree").css({
+			animation:"0.5s tranlate3 1s forwards linear",
+		})
+		$(".l_logo").css({
+			animation:"hide 0.5s linear 2s forwards",
+		})
+		$("#l_start img:nth-child(2)").css({
+			animation: "0.5s tranlate5 1.5s forwards linear"
+		})
+		$("#l_start img:nth-child(1)").css({
+			animation: "0.5s tranlate4 1.5s forwards linear"
+		})
+		$("#l_rule").css({
+			animation:"0.5s hide 2s forwards linear"
+		})
+	}
+	var index=0;//表示多少张
+	for (var i=0; i<arr.length; i++){
+		var imgObj=new Image();
+		imgObj.src=arr[i];
+		imgObj.onload=function (){
+			index++;
+			var str=index/arr.length;
+			str=parseFloat(str);
+			// loading.innerHTML=str.toFixed(2)+"%";
+			if (index>=arr.length){
+				allCallback();
+			}
+		}
+	}
+	// 点击提示游戏规则
+		$("#l_rule span").on("click",function(){
+			$(this).css({
+				opacity:0.5
+			})
+
+			$("#mask").css({
+			display:"block"
+			})
+		})
+		$("#mask img:nth-child(2)").on("click",function(){
+			$("#mask").css({
+				display:"none"
+			})
+			$("l_rule span").css({
+				opacity:1
+			})
+		})
+
+		window.onload=function(){
+
+				var winheight=document.body.clientHeight||document.document.ElementHeight;
+				$("#l_tz a img:nth-child(1)").css({
+					top:winheight/100*2.5
+				})		
+
+
+		}
+
+</script>
+</html>

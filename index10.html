@@ -1,0 +1,172 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<title>Document</title>
+<style type="text/css">
+
+			#l_pageten{
+				width: 100%;
+				height: 100%;
+				background: url(img/bg1.jpg) no-repeat;
+				background-size: 100% 100%;
+				overflow: hidden;
+				position: relative;
+				text-align:center;
+				color:#ffffff;
+			}
+			#turntable{position: absolute;top: 15%;left: 8%;
+				width: 84%;
+			}
+			#turntable>img{
+				width: 100%;
+			}
+			#way{width: 100%;height: 100%;background-color: rgba(0,0,0,0);border-radius: 50%;/*-webkit-transform: rotate(0deg);*/
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			#car{position: absolute;top: 63%;left: 5%; width: 15%;}
+			#btn{width: 30%;height: 30%;background: url(img/btn_bg.png);position: absolute;top: 35%;left: 35%;z-index: 1;
+				-webkit-background-size: 100% 100%;
+				background-size: 100% 100%;
+			}
+			#btn img{position: absolute;top: 30%;left: 15%; width: 70%;}
+		#goods{
+			width:80%;
+			height: 100%;
+			padding:20% 10% 0 10%;
+			background-color: rgba(4,5,4,0.7);
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 2;
+			text-align: center;
+		}
+		#goods>img:nth-child(1){
+			width:40%;
+		}
+
+		#goods p a{
+			color:#ffffff;
+		}
+		#fill{
+			margin-top: 5%;
+			width:100%;
+		}
+		#goods_view{
+			width:100%;
+			position: relative;
+
+		}
+		#l_good{
+			width:80%;
+			padding:10% 10% 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#l_good img{
+			width:100%;
+		}
+		#goods_view>img:nth-child(1){
+			width: 100%;
+		}
+</style>
+</head>
+<body>
+	<!-- 抽奖了 psd13-->
+	<div data-role="page" id="l_pageten" class="font_family">
+		<div class="l_logo">
+			<img src="img/logo.png" alt="">
+		</div>
+		<div id="turntable">
+			<img src="img/plate.png" alt="" />
+			<div id="btn"><img src="img/go.png" alt="" /></div>
+			<div id="way"><img src="img/c3.png" alt="" id="car" /></div>
+		</div>
+		<!-- 抽奖成功之后跳出的页面 -->
+		<div id="goods">  
+			<img src="img/cc.png" alt="">
+			<div id="goods_view">
+				<img src="img/co.png" alt="">
+				<div id="l_good">
+					<img src="img/co.png" alt=""><!--  中了什么奖的图片-->
+					<p>中了什么奖</p><!--  中了什么奖的文字描述-->
+				</div>
+			</div>
+			<img src="img/fill.png" alt="" id="fill">
+			<p><a href="">分享给好友，一起来玩哦！</a></p><!--  分享链接-->
+		</div>
+	</div>
+</body>
+<script>
+		var oWay = document.getElementById('way');
+		var btn = document.getElementById('btn');
+		var deg = 0;
+		var deg1 = 0;
+		var timer = null;
+		var timer1 = null;
+		var i;
+		var result;
+		var bol = true;
+		var arr = [0,1,2,3,4,5,6];
+		
+		btn.addEventListener('click',start,false);
+		
+		function start(){
+			if(bol){
+				i = Math.floor(Math.random()*7);
+				
+				/**
+				 * result为后台获取的数值，这里用随机数组代替
+				 * 默认0：神秘大奖，1：海洋温泉，2：神秘岛，3：梦幻剧场，4：海泉湾公仔，5：明星海报，6：海景房；
+				*/
+				result = arr[i];
+				turn();
+			}
+			bol = false;
+		}
+		
+		function turn(){
+			timer1 = setInterval(function(){
+				deg1+=3;
+				oWay.style.transform = 'rotate('+deg1+'deg)';
+				if (deg1>=720) {
+					clearInterval(timer1);
+					carTurn();
+				}
+			},15);
+		}
+		
+		function carTurn(){
+			switch(result){
+				case 0: 
+					var ram = Math.floor(Math.random()*10);
+					if(ram<5){
+						result = 2;
+					}else{
+						result = 6;
+					}
+					break;
+				case 1: result = 3;break;case 2: result = 4;break;case 3: result = 5;break;case 4: result = 7;break;case 5: result = 0;break;case 6: result = 1;break;
+			}
+			timer = setInterval(function(){
+				deg+=3;
+				oWay.style.transform = 'rotate('+deg+'deg)';
+				if (deg>=result*30) {
+					clearInterval(timer);
+					bol = true;
+					btn.removeEventListener('click',start,false);
+				}
+			},30);
+		}
+		
+	</script>
+
+</html>
